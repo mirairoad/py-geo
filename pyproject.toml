@@ -1,0 +1,61 @@
+[project]
+name = "py-geo"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "leo", email = "leotermine.au@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.141.1",
+    "psycopg>=3.3.6",
+    "pwdlib>=0.3.1",
+    "sqlalchemy>=2.1.1",
+    "uvicorn>=0.54.0",
+]
+
+[project.scripts]
+serve = "server.main:run"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+src = ["src"]               # so import sorting treats server/db as first-party
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "ASYNC", "RUF", "TID"]
+
+[tool.pyright]
+include = ["src"]
+extraPaths = ["src"]
+venvPath = "."
+venv = ".venv"
+typeCheckingMode = "strict"
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports="parents"
+
+[tool.pytest.ini_options]
+testpaths = ["src/tests"]
+addopts = "--import-mode=importlib --cov=server --cov=db --cov-report=term-missing"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/server", "src/db"]
+
+[dependency-groups]
+dev = [
+    "basedpyright>=1.40.1",
+    "httpx>=0.28.1",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.16.9",
+]
