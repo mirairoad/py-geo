@@ -11,6 +11,7 @@ dependencies = [
     "fastapi>=0.141.1",
     "psycopg>=3.3.6",
     "pwdlib>=0.3.1",
+    "pydantic-settings>=2.15.0",
     "sqlalchemy>=2.1.1",
     "uvicorn>=0.54.0",
 ]
@@ -42,13 +43,13 @@ ban-relative-imports="parents"
 
 [tool.pytest.ini_options]
 testpaths = ["src/tests"]
-addopts = "--import-mode=importlib --cov=server --cov=db --cov-report=term-missing"
+addopts = "--import-mode=importlib --cov=server --cov=db --cov=internals --cov-report=term-missing"
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "session"
 
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/server", "src/db"]
+packages = ["src/server", "src/db", "src/internals",]
 
 [dependency-groups]
 dev = [

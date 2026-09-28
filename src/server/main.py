@@ -1,5 +1,11 @@
 import uvicorn
 
+from internals.config import Settings
+
 
 def run() -> None:
-    uvicorn.run("server.app:create_app", port=3001, reload=True, factory=True)
+    settings = Settings()
+
+    uvicorn.run(
+        "server.app:create_app", host=settings.host, port=settings.port, reload=True, factory=True
+    )

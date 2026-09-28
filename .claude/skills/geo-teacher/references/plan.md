@@ -42,12 +42,12 @@ py-geo/
 ├── pyproject.toml, uv.lock, .python-version (3.14)
 ├── src/
 │   ├── db/                # base.py, session.py, registry.py
+│   ├── internals/         # config.py etc. TOP-LEVEL on purpose: shared by db, server, scripts
 │   ├── server/
 │   │   ├── main.py        # run(): uvicorn.run("server.app:create_app", factory=True)
 │   │   ├── app/           # __init__.py holds create_app()
 │   │   ├── apis/public/<feature>/ , apis/private/<feature>/   # APIRouters
 │   │   ├── services/<feature>/   # model, schema, service
-│   │   ├── internals/
 │   │   └── middlewares/
 │   └── tests/             # testpaths = src/tests, --import-mode=importlib
 ```
